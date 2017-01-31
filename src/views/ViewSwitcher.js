@@ -21,7 +21,7 @@ const ViewSwitcher = (props) => (
 
 
 const mapStateToProps = state => ({
-  currentView: state.view.currentView
+  currentView: state.view[state.view.length - 1]
 })
 
 export default connect(

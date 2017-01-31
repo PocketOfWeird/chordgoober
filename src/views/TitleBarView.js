@@ -6,7 +6,7 @@ import AppBar from 'material-ui/AppBar'
 import MenuItem from 'material-ui/MenuItem'
 import MenuIcon from 'material-ui/svg-icons/navigation/menu'
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back'
-import { logout, setView } from '../actions'
+import { logout, setView, goBack } from '../actions'
 
 
 const TitleBarView = (props) => (
@@ -14,6 +14,7 @@ const TitleBarView = (props) => (
     iconElementLeft={props.currentView[0] !== 'home' &&
       <IconButton
         touch={true}
+        onTouchTap={props.handleBack}
       >
         <ArrowBackIcon />
       </IconButton>
@@ -31,16 +32,20 @@ const TitleBarView = (props) => (
         <MenuItem primaryText="Logout" onTouchTap={props.handleLogout} />
       </IconMenu>
     }
+    showMenuIconButton={props.currentView[0] !== 'home'}
+    onTitleTouchTap={props.handleHome}
   />
 )
 
 const mapStateToProps = state => ({
-  currentView: state.view.currentView
+  currentView: state.view[state.view.length - 1]
 })
 
 const mapDispatchToProps = dispatch => ({
   handleLogout: e => dispatch(logout()),
-  handleSets: e => dispatch(setView(['sets']))
+  handleSets: e => dispatch(setView(['sets'])),
+  handleBack: e => dispatch(goBack()),
+  handleHome: e => dispatch(setView(['home']))
 })
 
 export default connect(
