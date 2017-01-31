@@ -1,10 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Infinite from 'react-infinite/build/react-infinite'
 import {List, ListItem} from 'material-ui/List'
 import Divider from 'material-ui/Divider'
+import { setView } from '../actions'
+
 
 const HomeView = (props) => (
   <List>
+    <Infinite containerHeight={800} elementHeight={72}>
     {props.chords.map((chord, index) =>
       <div>
         <ListItem key={index}
@@ -15,6 +19,7 @@ const HomeView = (props) => (
         <Divider />
       </div>
     )}
+    </Infinite>
   </List>
 )
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import map from 'lodash.map'
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -27,7 +28,7 @@ const DetailsView = (props) => (
     >
       {props.sets &&
         <div>
-          {props.sets.map((set, setIndex) =>
+          {map(props.sets, (set, setIndex) =>
             <MenuItem
               key={setIndex}
               primaryText={set.name}
@@ -48,8 +49,8 @@ const DetailsView = (props) => (
 )
 
 const mapStateToProps = state => ({
-  chordIndex: state.view.currentView[1],
-  chord: state.chords[state.view.currentView[1]],
+  chordIndex: state.view[state.view.length - 1][1],
+  chord: state.chords[state.view[state.view.length - 1][1]],
   sets: state.user.sets
 })
 
