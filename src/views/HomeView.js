@@ -1,25 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card'
-import FlatButton from 'material-ui/FlatButton'
-
+import {List, ListItem} from 'material-ui/List'
+import Divider from 'material-ui/Divider'
 
 const HomeView = (props) => (
-  <div>
+  <List>
     {props.chords.map((chord, index) =>
-      <Card key={index}>
-        <CardHeader
-          title={chord.chord}
-          subtitle={chord.modf}
-          actAsExpander={true}
-          showExpandableButton={true}
+      <div>
+        <ListItem key={index}
+          primaryText={chord.chord}
+          secondaryText={chord.modf}
+          onTouchTap={props.handleDetails(index)}
         />
-        <CardText>
-
-        </CardText>
-      </Card>
+        <Divider />
+      </div>
     )}
-  </div>
+  </List>
 )
 
 const mapStateToProps = state => ({
@@ -27,7 +23,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-
+  handleDetails: index => e => dispatch(setView(['details', index.toString()])),
 })
 
 export default connect(
