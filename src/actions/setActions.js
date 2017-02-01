@@ -55,7 +55,7 @@ export const addToNewSet = (sets, chordIndex) => (dispatch, getState) => {
       ...user,
       sets: {
         ...user.sets,
-        [name]: [chord]
+        [name]: { [chordIndex]: chord }
       }
     }
     return dispatch(updateUser(userWithExistingSets))
@@ -63,7 +63,7 @@ export const addToNewSet = (sets, chordIndex) => (dispatch, getState) => {
   const updatedUser = {
     ...user,
     sets: {
-      [name]: [chord]
+      [name]: { [chordIndex]: chord }
     }
   }
   return dispatch(updateUser(updatedUser))
