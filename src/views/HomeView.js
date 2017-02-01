@@ -1,37 +1,37 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Infinite from 'react-infinite/build/react-infinite'
-import {List, ListItem} from 'material-ui/List'
-import Divider from 'material-ui/Divider'
-import { setView } from '../actions'
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
+import SetMenuView from './SetMenuView'
 
 
 const HomeView = (props) => (
-  <List>
-    <Infinite containerHeight={800} elementHeight={72}>
+  <Infinite containerHeight={800} elementHeight={72}>
     {props.chords.map((chord, index) =>
-      <div>
-        <ListItem key={index}
-          primaryText={chord.chord}
-          secondaryText={chord.modf}
-          onTouchTap={props.handleDetails(index)}
+      <Card>
+        <CardHeader key={index}
+          title={chord.chord}
+          subtitle={chord.modf}
+          actAsExpander={true}
+          showExpandableButton={true}
         />
-        <Divider />
-      </div>
+        <CardText expandable={true}>
+          Pretty chord display
+        </CardText>
+        <CardActions expandable={true}>
+          <SetMenuView
+            chordIndex={index}
+          />
+        </CardActions>
+      </Card>
     )}
-    </Infinite>
-  </List>
+  </Infinite>
 )
 
 const mapStateToProps = state => ({
   chords: state.chords
 })
 
-const mapDispatchToProps = dispatch => ({
-  handleDetails: index => e => dispatch(setView(['details', index.toString()])),
-})
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(HomeView)

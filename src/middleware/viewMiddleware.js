@@ -1,10 +1,10 @@
 import firebase from '../db'
-import { SET_VIEW } from '../actions'
+import { CHANGE_CURRENT_VIEW } from '../actions'
 
 
 const viewMiddleware = store => next => action => {
-  if (action.type === SET_VIEW) {
-    
+  if (action.type === CHANGE_CURRENT_VIEW) {
+
   }
   return next(action)
 }

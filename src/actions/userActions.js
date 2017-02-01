@@ -1,3 +1,4 @@
+import { firebaseUpdate } from './firebaseActions'
 import { loginWithGoogle, logoutUser } from '../db'
 
 
@@ -22,4 +23,8 @@ export const logout = () => {
   return {
     type: LOGGING_OUT
   }
+}
+
+export const updateUser = userState => dispatch => {
+  return dispatch(firebaseUpdate('/users/' + userState.uid, userState))
 }

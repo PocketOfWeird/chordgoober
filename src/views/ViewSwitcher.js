@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import HomeView from './HomeView'
-import DetailsView from './DetailsView'
 import SetsView from './SetsView'
+import SetDetailsView from './SetDetailsView'
+import { getCurrentView } from '../selectors'
 
 
 const ViewSwitcher = (props) => (
@@ -10,18 +11,18 @@ const ViewSwitcher = (props) => (
     {props.currentView[0] === 'home' &&
       <HomeView />
     }
-    {props.currentView[0] === 'details' &&
-      <DetailsView />
-    }
     {props.currentView[0] === 'sets' &&
       <SetsView />
+    }
+    {props.currentView[0] === 'setDetails' &&
+      <SetDetailsView />
     }
   </div>
 )
 
 
 const mapStateToProps = state => ({
-  currentView: state.view[state.view.length - 1]
+  currentView: getCurrentView(state)
 })
 
 export default connect(

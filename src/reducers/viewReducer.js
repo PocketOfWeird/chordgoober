@@ -1,12 +1,15 @@
-import { SET_VIEW, GO_BACK } from '../actions'
+import { CHANGE_CURRENT_VIEW, CHANGE_CURRENT_VIEW_FORCE, GO_BACK } from '../actions'
 
+const pop = state => state.slice(0, state.length - 1)
 
 const view = (state=[['home']], action) => {
   switch (action.type) {
-    case SET_VIEW:
+    case CHANGE_CURRENT_VIEW:
       return [...state, action.payload]
+    case CHANGE_CURRENT_VIEW_FORCE:
+      return [...pop(state), action.payload]
     case GO_BACK:
-      return state.slice(0, state.length - 1)
+      return pop(state)
     default:
       return state
   }

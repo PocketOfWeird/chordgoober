@@ -6,7 +6,8 @@ import AppBar from 'material-ui/AppBar'
 import MenuItem from 'material-ui/MenuItem'
 import MenuIcon from 'material-ui/svg-icons/navigation/menu'
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back'
-import { logout, setView, goBack } from '../actions'
+import { logout, changeCurrentView, goBack } from '../actions'
+import { userHasSets, getCurrentView } from '../selectors'
 
 
 const TitleBarView = (props) => (
@@ -28,7 +29,9 @@ const TitleBarView = (props) => (
           </IconButton>
         }
       >
-        <MenuItem primaryText="My Sets" onTouchTap={props.handleSets} />
+        {props.hasSets &&
+          <MenuItem primaryText="My Sets" onTouchTap={props.handleSets} />
+        }
         <MenuItem primaryText="Logout" onTouchTap={props.handleLogout} />
       </IconMenu>
     }
@@ -38,14 +41,15 @@ const TitleBarView = (props) => (
 )
 
 const mapStateToProps = state => ({
-  currentView: state.view[state.view.length - 1]
+  currentView: getCurrentView(state),
+  hasSets: userHasSets(state)
 })
 
 const mapDispatchToProps = dispatch => ({
   handleLogout: e => dispatch(logout()),
-  handleSets: e => dispatch(setView(['sets'])),
+  handleSets: e => dispatch(changeCurrentView(['sets'])),
   handleBack: e => dispatch(goBack()),
-  handleHome: e => dispatch(setView(['home']))
+  handleHome: e => dispatch(changeCurrentView(['home']))
 })
 
 export default connect(

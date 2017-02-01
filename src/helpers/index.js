@@ -1,10 +1,3 @@
 export const newUserState = user => ({
-  uid: user.uid,
-  email: user.email,
-  photoURL: user.photoURL,
-  displayName: user.displayName
+  uid: user.uid
 })
-
-export const randomId = () => {
-  return Math.random().toString(36).substr(2,24)
-}
