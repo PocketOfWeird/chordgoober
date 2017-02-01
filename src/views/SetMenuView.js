@@ -25,6 +25,7 @@ const SetMenuView = (props) => (
           <MenuItem
             key={setId}
             primaryText={setId}
+            secondaryText={Object.keys(props.sets[setId]).length}
             onTouchTap={props.handleAddToSet(setId, props.chordIndex)}
           />
         )}
