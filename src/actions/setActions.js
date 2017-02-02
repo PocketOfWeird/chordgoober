@@ -69,6 +69,22 @@ export const addToNewSet = (sets, chordIndex) => (dispatch, getState) => {
   return dispatch(updateUser(updatedUser))
 }
 
+export const removeFromSet = (setId, chordIndex) => (dispatch, getState) => {
+  const user = getState().user
+  if (nameExists(user.sets, setId)) {
+    let updatedSet = user.sets[setId]
+    delete updatedSet[chordIndex]
+    const updatedUser = {
+      ...user,
+      sets: {
+        ...user.sets,
+        [setId]: updatedSet
+      }
+    }
+    return dispatch(updateUser(updatedUser))
+  }
+}
+
 export const removeSet = setId => (dispatch, getState) => {
   let user = getState().user
   if (nameExists(user.sets, setId)) {

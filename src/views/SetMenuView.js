@@ -16,8 +16,8 @@ import { newSetName, addToSet, makeNewSet, addToNewSet } from '../actions'
 const SetMenuView = (props) => (
   <IconMenu
     iconButtonElement={<IconButton><PlayListAddIcon /></IconButton>}
-    anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-    targetOrigin={{horizontal: 'left', vertical: 'top'}}
+    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+    targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
   >
     {props.sets &&
       <div>

@@ -6,6 +6,7 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'
+import ChordBarWrapper from '../components/ChordBarWrapper'
 import SetMenuView from './SetMenuView'
 import { setFilter, clearFilter } from '../actions'
 import { filterChords } from '../selectors'
@@ -16,7 +17,7 @@ const HomeView = (props) => (
     <Card>
       <CardText>
         <TextField
-          floatingLabelText='Search'
+          hintText='Search'
           value={props.chordFilter}
           fullWidth={true}
           onChange={props.handleSetFilter}
@@ -46,7 +47,7 @@ const HomeView = (props) => (
             showExpandableButton={true}
           />
           <CardText expandable={true}>
-            Pretty chord display
+            <ChordBarWrapper chord={chord} />
           </CardText>
           <CardActions expandable={true}>
             <SetMenuView
