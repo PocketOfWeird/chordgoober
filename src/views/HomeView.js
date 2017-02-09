@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Infinite from 'react-infinite/build/react-infinite'
-import TextField from 'material-ui/TextField'
+import AutoComplete from 'material-ui/AutoComplete'
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'
-import ChordBarWrapper from '../components/ChordBarWrapper'
+import ChordBar from '../components/ChordBar'
 import SetMenuView from './SetMenuView'
 import { setFilter, clearFilter } from '../actions'
 import { filterChords } from '../selectors'
@@ -14,49 +14,21 @@ import { filterChords } from '../selectors'
 
 const HomeView = (props) => (
   <div>
-    <Card>
-      <CardText>
-        <TextField
-          hintText='Search'
-          value={props.chordFilter}
-          fullWidth={true}
-          onChange={props.handleSetFilter}
-        />
-      </CardText>
-      {props.chordFilter &&
-        <CardActions>
-          <FlatButton
-            label='Clear search'
-            icon={<CloseIcon />}
-            onTouchTap={props.handleClearFilter}
-          />
-        </CardActions>
-      }
-    </Card>
-    <Divider />
-    {props.chords.length === 0 &&
-      <p>No chords found</p>
-    }
-    <Infinite containerHeight={800} elementHeight={72}>
-      {props.chords.map((chord, index) =>
-        <Card key={index}>
-          <CardHeader
-            title={chord.chord}
-            subtitle={chord.modf}
-            actAsExpander={true}
-            showExpandableButton={true}
-          />
-          <CardText expandable={true}>
-            <ChordBarWrapper chord={chord} />
-          </CardText>
-          <CardActions expandable={true}>
-            <SetMenuView
-              chordIndex={index}
-            />
-          </CardActions>
-        </Card>
-      )}
-    </Infinite>
+    <AutoComplete
+      hintText='Search'
+      searchText={props.chordFilter}
+      onUpdateInput={props.handleSetFilter}
+      onNewRequest={props.handleSetCurrentChord}
+      maxSearchResults={5}
+      dataSource={props.chords.map((chord, index) => ({
+        text: chord.chord + ' ' + chord.modf,
+        value: { obj: chord, index: index }
+      }))}
+    />
+    <ChordBar chord={props.currentChord.obj} />
+    <SetMenuView
+      chordIndex={props.currentChord.index}
+    />
   </div>
 )
 
